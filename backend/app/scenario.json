@@ -1,0 +1,86 @@
+{
+  "origin": "PE",
+  "suspect_vector_kb": 3,
+  "manual_baseline_seconds": 540,
+  "start_clock": "14:22:30",
+  "hops": [
+    {
+      "id": 1,
+      "label": "Paharganj perimeter fan-out",
+      "elapsed_s": 0.6,
+      "scan": ["PE", "EXIT_PG", "METRO_LINK", "PG_PARKING"],
+      "prearmed": [],
+      "match": [],
+      "exit_flag": [],
+      "vector_edges": [],
+      "events": [
+        "Parallel perimeter sweep across Paharganj exits and metro link; no match."
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Concourse prediction",
+      "elapsed_s": 1.2,
+      "scan": ["PG_SECURITY", "BAGGAGE_SCAN", "TICKET_HALL", "CONCOURSE_WEST"],
+      "prearmed": ["FOB_1", "FOB_2"],
+      "match": [],
+      "exit_flag": [],
+      "vector_edges": [
+        { "source": "CONCOURSE_WEST", "target": "FOB_1" },
+        { "source": "CONCOURSE_WEST", "target": "FOB_2" }
+      ],
+      "events": [
+        "Concourse clear; forward path narrows to bridge crossings.",
+        "PRE-ARM decision: FOB-1 and FOB-2 receive the 3 KB embedding ahead of arrival."
+      ]
+    },
+    {
+      "id": 3,
+      "label": "FOB intercept",
+      "elapsed_s": 1.8,
+      "scan": ["FOB_1", "FOB_2", "FOB_CENTRAL"],
+      "prearmed": ["PF_8_9", "AG_CONCOURSE"],
+      "match": ["FOB_2"],
+      "exit_flag": [],
+      "vector_edges": [
+        { "source": "FOB_2", "target": "PF_8_9" },
+        { "source": "PF_8_9", "target": "AG_CONCOURSE" }
+      ],
+      "events": [
+        "Predictive branch shifts eastbound toward PF-8/9 and Ajmeri Gate concourse."
+      ]
+    },
+    {
+      "id": 4,
+      "label": "Platform confirmation",
+      "elapsed_s": 2.4,
+      "scan": ["PF_7", "PF_8_9", "PF_10_11"],
+      "prearmed": ["EXIT_AG"],
+      "match": ["PF_8_9"],
+      "exit_flag": [],
+      "vector_edges": [
+        { "source": "AG_CONCOURSE", "target": "EXIT_AG" }
+      ],
+      "events": [
+        "Second positive confirms Ajmeri-side movement.",
+        "RAKSHAK dispatch window opened for predicted egress."
+      ]
+    },
+    {
+      "id": 5,
+      "label": "Predicted egress",
+      "elapsed_s": 3.0,
+      "scan": ["AG_CONCOURSE", "AJMERI_ENTRY", "EXIT_AG"],
+      "prearmed": ["BUS_STAND_LINK", "PARKING_AJMERI"],
+      "match": [],
+      "exit_flag": ["EXIT_AG"],
+      "vector_edges": [
+        { "source": "EXIT_AG", "target": "BUS_STAND_LINK" },
+        { "source": "EXIT_AG", "target": "PARKING_AJMERI" }
+      ],
+      "events": [
+        "Predicted egress reached at Exit-AG."
+      ]
+    }
+  ]
+}

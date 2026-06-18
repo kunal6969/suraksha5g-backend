@@ -1,0 +1,12 @@
+.venv/
+node_modules/
+dist/
+__pycache__/
+*.pyc
+.env
+graphify-out/
+.claude/
+.codex/
+*.log
+*.out.log
+*.err.log
